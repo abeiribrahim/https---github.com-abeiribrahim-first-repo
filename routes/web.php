@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
 Route::get('about',function(){
     return view('about');
 });
@@ -23,28 +24,22 @@ Route::get('contact-us',function(){
     return view('contact-us');
 });
 Route::prefix('blog')->group(function(){
-    Route::get('test',function(){
-        return view('test');
-    
+    Route::get('science',function(){
+        return'science page';
     });
-    Route::get('activity/{category}',function($cat){
-        return 'the category is '.$cat;
-    })->whereIn ('category',['science','math','medical','sport']);
+    Route::get('math',function(){
+        return'Math page';
     });
-    Route::get('science{id?}',function($id){
-        return 'Welcome to our :'.$id . 'page';
+    Route::get('sport',function(){
+        return'sport page';
     });
-    Route::get('math',function($id){
-        return 'Welcome to our :'.$id .'page';
-    });
-    Route::get('medical',function($id){
-        return 'Welcome to our :'.$id . 'page';
-    });
-    Route::get('sport',function($id){
-        return 'Welcome to our :'.$id .'page';
+    Route::get('medical',function(){
+        return'medical page';
     });
 
-  
+});
+
+
 
 
 
@@ -58,16 +53,16 @@ Route::prefix('blog')->group(function(){
 
 //});
 
-Route::prefix('lar')->group(function(){
+//Route::prefix('lar')->group(function(){
 
-Route::get('test',function(){
-    return view('test');
+//Route::get('test',function(){
+    //return view('test');
 
-});
-Route::get('test1/{id}',function($id){
-    return 'Welcome to our :'.$id;
-});
-Route::get('test2/{id?}',function($id=0){
+//});
+//Route::get('test1/{id}',function($id){
+    //return 'Welcome to our :'.$id;
+//});
+/*Route::get('test2/{id?}',function($id=0){
     return 'the id 2 is :'.$id;
 })->where (['id'=>'[0-9]+']);
 Route::get('test2/{id?}',function($id=0){
@@ -82,5 +77,5 @@ Route::get('test4/{id}/{name}',function($id,$name){
 Route::get('product/{category}',function($cat){
     return 'the category is '.$cat;
 })->whereIn ('category',['laptop','mobile']);
-});
+});*/
 
