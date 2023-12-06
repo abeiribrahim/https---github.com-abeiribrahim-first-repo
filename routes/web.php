@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+//use App\Http\controllers\ExampleController;
+use App\Http\controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,8 +18,32 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/', function () {
+    return view('login');
+});
 
-Route::get('about',function(){
+
+//Route::post('login',[LoginController::class,'login']);
+  
+
+
+Route::get('login',function(){
+  return view('login');
+});
+/*Route::post('logged',function(){
+    return'you are logged in ';
+})->name('logged');*/
+Route::post('logged',[LoginController::class,'logged'])->name('logged');
+  
+
+//Route::get('test', [LoginController::class, 
+//'my_data']);
+
+//Route::get('test', [exampleController::class, 
+//'my_data']);
+
+
+/*Route::get('about',function(){
     return view('about');
 });
 Route::get('contact-us',function(){
@@ -37,7 +63,7 @@ Route::prefix('blog')->group(function(){
         return'medical page';
     });
 
-});
+});*/
 
 
 
