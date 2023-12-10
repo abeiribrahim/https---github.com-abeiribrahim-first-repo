@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 //use App\Http\controllers\ExampleController;
-use App\Http\controllers\LoginController;
+//use App\Http\controllers\LoginController;
+use App\Http\controllers\PostController;
+use App\Http\controllers\CarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,25 +17,34 @@ use App\Http\controllers\LoginController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/', function () {
-    return view('login');
-});
+Route::get('posts',[PostController::class,'index']);
+Route::get('storepost',[PostController::class,'store']);
+Route::get('createpost',[PostController::class,'create']);
+Route::post('storepost',[PostController::class,'store'])->name('storepost');
+
+//Route::get('cars',[CarController::class,'index']);
+//Route::get('storecar',[CarController::class,'store']);
+//Route::get('createcar',[CarController::class,'create']);
+//Route::post('storecar',[CarController::class,'store'])->name('storecar');
+
+
+
+//Route::get('/', function () {
+   // return view('login');
+//});
 
 
 //Route::post('login',[LoginController::class,'login']);
   
 
 
-Route::get('login',function(){
-  return view('login');
-});
+//Route::get('login',function(){
+ // return view('login');
+//});
 /*Route::post('logged',function(){
     return'you are logged in ';
 })->name('logged');*/
-Route::post('logged',[LoginController::class,'logged'])->name('logged');
+//Route::post('logged',[LoginController::class,'logged'])->name('logged');
   
 
 //Route::get('test', [LoginController::class, 
