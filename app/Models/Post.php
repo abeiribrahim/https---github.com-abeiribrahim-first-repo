@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
-    private $columns = ['post_title', 'description'];
-public function store(Request $request): RedirectResponse
-{
-Client::create($request->only($this->columns));
-return redirect('posts');
-}
+    protected $fillable = [
+        'post_title',
+        'description',
+        'auther',
+        'published',
+       
+        
+        ];
 }

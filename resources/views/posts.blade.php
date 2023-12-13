@@ -23,6 +23,8 @@
         <th>Description</th>
         <th>Auther</th>
         <th>Published</th>
+        <th>Edit</th>
+        <th>show</th>
       </tr>
     </thead>
     <tbody>
@@ -36,6 +38,8 @@
             @else
                 No
             @endif</td>
+            <td><a href="editpost/{{ $posts->id }}">Edit</a></td>
+            <td><a href="showpost/{{ $posts->id }}">show</a></td>
         
       </tr>
 

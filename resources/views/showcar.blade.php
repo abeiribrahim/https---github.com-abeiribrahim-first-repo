@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="container">
-  <h2>Update car data</h2>
+  <h2>Show car data</h2>
   <form action="{{route('showcar',$cars->id)}}" method="post">
     @csrf
     <h1>{{$cars->title}}</h1>
