@@ -7,6 +7,8 @@ use App\models\Car;
 
 class Carcontroller extends Controller
 {
+    private $columns =['title','description','published'];
+    
     /**
      * Display a listing of the resource.
      */
@@ -29,7 +31,13 @@ class Carcontroller extends Controller
      */
     public function store(Request $request)
     {
-        $cars=new car();
+       
+        $data=$request->only($this->columns);
+        $data['published']=isset($request->published);
+        car::create($data);
+        return redirect('cars');
+
+        /*$cars=new car();
         $cars->title=$request->title;
         $cars->description=$request->description;
         if(isset($request->published))
@@ -41,7 +49,7 @@ class Carcontroller extends Controller
 
         
         
-        return 'Data added successfully';
+        return 'Data added successfully';*/
         //$cars=new car();
         //$cars->title='BMW';
         //$cars->description='BMW description';
@@ -56,15 +64,18 @@ class Carcontroller extends Controller
      */
     public function show(string $id)
     {
-        //
+        $cars = Car::findOrFail($id);
+        return view ('showcar', compact('cars'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
+
     {
-        //
+        $cars = Car::findOrFail($id);
+        return view ('editCar', compact('cars'));
     }
 
     /**
@@ -72,7 +83,11 @@ class Carcontroller extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $data=$request->only($this->columns);
+        $data['published']=isset($request->published);
+        
+        car::where('id',$id)->update($data);
+        return redirect('cars');
     }
 
     /**

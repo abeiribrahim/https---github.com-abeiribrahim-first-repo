@@ -22,6 +22,8 @@
         <th>title</th>
         <th>description</th>
         <th>published</th>
+        <th>Edit</th>
+        <th>show</th>
       </tr>
     </thead>
     <tbody>
@@ -34,6 +36,8 @@
             @else
                 No
             @endif</td>
+            <td><a href="editCar/{{ $car->id }}">Edit</a></td>
+            <td><a href="showcar/{{ $car->id }}">show</a></td>
         
       </tr>
 
