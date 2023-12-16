@@ -6,7 +6,7 @@
     <ul class="nav navbar-nav">
       <li class="active"><a href="cars">Home</a></li>
       <li><a href="createcar">insertcar</a></li>
-      <li><a href="update">Updatecar</a></li>
+      <li><a href="trashedcars">Trashedcar</a></li>
       <li><a href="#">Page 3</a></li>
     </ul>
   </div>

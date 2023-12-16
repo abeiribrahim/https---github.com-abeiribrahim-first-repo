@@ -22,9 +22,9 @@
         <th>title</th>
         <th>description</th>
         <th>published</th>
-        <th>Edit</th>
-        <th>show</th>
+
         <th>Delete</th>
+        <th>Restore</th>
       </tr>
     </thead>
     <tbody>
@@ -37,10 +37,9 @@
             @else
                 No
             @endif</td>
-            <td><a href="editCar/{{ $car->id }}">Edit</a></td>
-            <td><a href="showcar/{{ $car->id }}">show</a></td>
-            <td><a href="deletecar/{{ $car->id }}"onclick = "return confirm('Are you sure you want to delete?')"; >Delete</a></td>
-        
+
+            <td><a href="forceDelete/{{ $car->id }}"onclick = "return confirm('Are you sure you want to delete?')"; >Delete</a></td>
+            <td><a href="restore/{{ $car->id }}" >Restore</td>
       </tr>
 
     @endforeach

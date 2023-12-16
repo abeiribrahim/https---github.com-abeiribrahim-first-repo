@@ -10,7 +10,7 @@ class Postcontroller extends Controller
     /** 
      * Display a listing of the resource.
      */
-    private $columns =['post_title','description','published','auther'];
+    //private $columns =['post_title','description','published','auther'];
     public function index()
     {
         $posts= post::get();
@@ -30,7 +30,13 @@ class Postcontroller extends Controller
      */
     public function store(Request $request)
     {
-        $data=$request->only($this->columns);
+        $data=$request->validate([
+            'post_title'=>'required|string|max:50',
+            'description'=>'required|string',
+            'auther'=>'required|string'
+
+           ]);
+        //$data=$request->only($this->columns);
         $data['published']=isset($request->published);
         post::create($data);
         return redirect('posts');
@@ -90,5 +96,25 @@ class Postcontroller extends Controller
     public function destroy(string $id)
     {
         //
+        post::where('id',$id)->delete();
+        
+        return redirect('posts');
     }
+    public function trashed()
+{
+    $posts = post::onlyTrashed()->get();
+    return view('trashedposts', compact('posts'));
+}
+public function forceDelete(string $id)
+{
+    post::where('id',$id)->forceDelete();
+        
+    return redirect('posts');
+}
+public function restore(string $id)
+{
+    post::where('id',$id)->restore();
+        
+    return redirect('posts');
+}
 }

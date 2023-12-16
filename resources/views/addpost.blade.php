@@ -16,11 +16,17 @@
     @csrf
     <div class="form-group">
       <label for="post_title">Title:</label>
-      <input type="text" class="form-control" id="post_title" placeholder="Enter title" name="post_title">
+      <input type="text" class="form-control" id="post_title" placeholder="Enter title" name="post_title"  value="{{old('post_title')}}">
+      @error('post_title')
+      {{$message}}
+      @enderror
     </div>
     <div class="form-group">
       <label for="description">description:</label>
-      <textarea class="form-control" name="description" id="" cols="60" rows="3"></textarea>
+      <textarea class="form-control" name="description" id="" cols="60" rows="3"value="{{old('description')}}" ></textarea>
+      @error('description')
+      {{$message}}
+      @enderror
     </div>
     <div class="form-group">
       <label for="auther">Auther:</label>
