@@ -22,6 +22,7 @@
         <th>title</th>
         <th>description</th>
         <th>published</th>
+        
         <th>Edit</th>
         <th>show</th>
         <th>Delete</th>
@@ -32,6 +33,7 @@
         @foreach($cars as $car)
         <td>{{$car->title}}</td>
         <td>{{$car->description}}</td>
+        
         <td>@if($car->published)
                 Yes
             @else

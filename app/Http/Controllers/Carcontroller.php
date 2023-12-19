@@ -4,14 +4,30 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\models\Car;
+use App\Traits\Common;
 
 class Carcontroller extends Controller
 {
+    use common;
     private $columns =['title','description','published'];
     
     /**
      * Display a listing of the resource.
      */
+    public function messages()
+    {
+    return [
+        'title.required'=>'العنوان مطلوب',
+        'title.string'=>'Should be string',
+        'description.required'=> 'should be text',
+        'image.required'=> 'Please be sure to select an image',
+            'image.mimes'=> 'Incorrect image type',
+            'image.max'=> 'Max file size exceeded',
+        ];
+    }
+
+
+
     public function index()
     {
         $cars= car::get();
@@ -23,6 +39,7 @@ class Carcontroller extends Controller
      */
     public function create()
     {
+        $messages = $this->messages();
         return view('addcar');
     }
 
@@ -31,14 +48,20 @@ class Carcontroller extends Controller
      */
     public function store(Request $request)
     {
-       $data=$request->validate([
-        'title'=>'required|string|max:50',
-        'description'=>'required|string'
-       ]);
-        //$data=$request->only($this->columns);
-        $data['published']=isset($request->published);
-        car::create($data);
+        $messages = $this->messages();
+
+        $data = $request->validate([
+             'title'=>'required|string|max:50',
+             'description'=> 'required|string',
+             'image' => 'required|mimes:png,jpg,jpeg|max:2048',
+            ], $messages);
+            $fileName = $this->uploadFile($request->image, 'assets/images');    
+        $data['image'] = $fileName;
+        $data['published'] = isset($request->published);
+        Car::create($data);
         return redirect('cars');
+        //$data=$request->only($this->columns);
+
 
         /*$cars=new car();
         $cars->title=$request->title;
@@ -77,6 +100,7 @@ class Carcontroller extends Controller
     public function edit(string $id)
 
     {
+       
         $cars = Car::findOrFail($id);
         return view ('editCar', compact('cars'));
     }
@@ -86,6 +110,7 @@ class Carcontroller extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $messages = $this->messages();
         $data=$request->only($this->columns);
         $data['published']=isset($request->published);
         
@@ -121,4 +146,5 @@ public function restore(string $id)
         
     return redirect('cars');
 }
+
 }
