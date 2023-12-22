@@ -9,7 +9,7 @@ use App\Traits\Common;
 class Carcontroller extends Controller
 {
     use common;
-    private $columns =['title','description','published'];
+    private $columns =['title','description','published','image'];
     
     /**
      * Display a listing of the resource.
@@ -55,7 +55,7 @@ class Carcontroller extends Controller
              'description'=> 'required|string',
              'image' => 'required|mimes:png,jpg,jpeg|max:2048',
             ], $messages);
-            $fileName = $this->uploadFile($request->image, 'assets/images');    
+            $fileName = $this->uploadFile($request->image, 'Assets/images');    
         $data['image'] = $fileName;
         $data['published'] = isset($request->published);
         Car::create($data);
@@ -90,8 +90,16 @@ class Carcontroller extends Controller
      */
     public function show(string $id)
     {
+        
         $cars = Car::findOrFail($id);
         return view ('showcar', compact('cars'));
+    }
+    public function upload(Request $request){
+        $file_extension = $request->image->getClientOriginalExtension();
+        $file_name = time() . '.' . $file_extension;
+        $path = 'Assets/images';
+        $request->image->move($path, $file_name);
+        return 'uploaded';
     }
 
     /**
@@ -111,8 +119,19 @@ class Carcontroller extends Controller
     public function update(Request $request, string $id)
     {
         $messages = $this->messages();
-        $data=$request->only($this->columns);
-        $data['published']=isset($request->published);
+
+        $data = $request->validate([
+             'title'=>'required|string|max:50',
+             'description'=> 'required|string',
+             'image' => 'required|mimes:png,jpg,jpeg|max:2048',
+            ], $messages);
+            $fileName = $this->uploadFile($request->image, 'Assets/images');    
+        $data['image'] = $fileName;
+        $data['published'] = isset($request->published);
+       
+        //$messages = $this->messages();
+        //$data=$request->only($this->columns);
+        //$data['published']=isset($request->published);
         
         car::where('id',$id)->update($data);
         return redirect('cars');
@@ -146,5 +165,6 @@ public function restore(string $id)
         
     return redirect('cars');
 }
+
 
 }

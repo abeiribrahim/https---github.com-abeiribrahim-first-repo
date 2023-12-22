@@ -12,7 +12,7 @@
 @include('includes.nav')
 <div class="container">
   <h2>Update car data</h2>
-  <form action="{{route('update',$cars->id)}}" method="post">
+  <form action="{{route('update',$cars->id)}}" method="post" enctype="multipart/form-data">
     @csrf
     @method('put')
     <div class="form-group">
@@ -25,7 +25,7 @@
     </div>
     <div class="form-group">
       <label for="image">Image:</label>
-      <input type="file" class="form-control" id="image" placeholder="Enter image" name="image">
+      <input type="file" class="form-control" id="image" placeholder="Enter image" name="image"><image src="{{asset('Assets/images/'.$cars->image)}}">
       @error('image')
         {{ $message }}
       @enderror

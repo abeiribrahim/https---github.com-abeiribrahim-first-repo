@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<form action="" method="post">
+<form action="" method="post" enctype="multipart/form-data">
     @csrf
   <title>Bootstrap Example</title>
   <meta charset="utf-8">
@@ -22,7 +22,8 @@
         <th>title</th>
         <th>description</th>
         <th>published</th>
-        
+
+        <th>image</th>
         <th>Edit</th>
         <th>show</th>
         <th>Delete</th>
@@ -39,6 +40,7 @@
             @else
                 No
             @endif</td>
+            <td><img src=" {{ asset ('/Assets/images/'. $car->image ) }} " alt="image" style="width:75px"> </td>
             <td><a href="editCar/{{ $car->id }}">Edit</a></td>
             <td><a href="showcar/{{ $car->id }}">show</a></td>
             <td><a href="deletecar/{{ $car->id }}"onclick = "return confirm('Are you sure you want to delete?')"; >Delete</a></td>

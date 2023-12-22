@@ -30,7 +30,7 @@
     </div>
     <div class="form-group">
       <label for="image">Image:</label>
-      <input type="file" class="form-control" id="image" placeholder="Enter image" name="image">
+      <input type="file" class="form-control" id="image" placeholder="Enter image" name="image" value="{{old('image')}}">
       @error('image')
         {{ $message }}
       @enderror

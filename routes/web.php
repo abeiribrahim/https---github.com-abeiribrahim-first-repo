@@ -41,12 +41,16 @@ Route::get('deletecar/{id}',[CarController::class,'destroy'])->name('deletecar')
 Route::get('forceDelete/{id}',[CarController::class,'forceDelete'])->name('forceDelete');
 Route::get('trashedcars',[CarController::class,'trashed'])->name('trashedcars');
 Route::get('restore/{id}',[CarController::class,'restore'])->name('restore');
-Route::post('image.upload',[ExampleController::class,'upload'])->name('image.upload');
+//Route::post('image.upload',[ExampleController::class,'upload'])->name('image.upload');
+Route::post('image.upload',[CarController::class,'upload'])->name('image.upload');
 
 
-Route::get('image',function(){
-    return view('image');
-});
+
+
+
+//Route::get('image',function(){
+   // return view('image');
+//});
 
 
 
