@@ -44,7 +44,12 @@ Route::get('restore/{id}',[CarController::class,'restore'])->name('restore');
 //Route::post('image.upload',[ExampleController::class,'upload'])->name('image.upload');
 Route::post('image.upload',[CarController::class,'upload'])->name('image.upload');
 
-
+Route::get('404',function(){
+    return view('404');
+ });
+Route::get('testhome',function(){
+    return view('testhome');
+ });
 
 
 

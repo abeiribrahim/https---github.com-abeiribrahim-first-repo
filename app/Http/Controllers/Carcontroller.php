@@ -55,7 +55,7 @@ class Carcontroller extends Controller
              'description'=> 'required|string',
              'image' => 'required|mimes:png,jpg,jpeg|max:2048',
             ], $messages);
-            $fileName = $this->uploadFile($request->image, 'Assets/images');    
+            $fileName = $this->uploadFile($request->image, 'assets/images');    
         $data['image'] = $fileName;
         $data['published'] = isset($request->published);
         Car::create($data);
@@ -118,16 +118,32 @@ class Carcontroller extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $messages = $this->messages();
+       //$messages = $this->messages();
 
+        //$data = $request->validate([
+             //'title'=>'required|string|max:50',
+            // 'description'=> 'required|string',
+            // 'image' => 'required|mimes:png,jpg,jpeg|max:2048',
+            //], $messages);
+           // $fileName = $this->uploadFile($request->image, 'Assets/images');    
+        //$data['image'] = $fileName;
+        //$data['published'] = isset($request->published);
+        $messages = $this->messages();
         $data = $request->validate([
              'title'=>'required|string|max:50',
              'description'=> 'required|string',
-             'image' => 'required|mimes:png,jpg,jpeg|max:2048',
+             'image' => 'sometimes|mimes:png,jpg,jpeg|max:2048',
             ], $messages);
-            $fileName = $this->uploadFile($request->image, 'Assets/images');    
-        $data['image'] = $fileName;
-        $data['published'] = isset($request->published);
+
+            if($request->hasFile('image')){
+                $fileName = $this->uploadFile($request->image, 'assets/images');    
+                $data['image'] = $fileName;
+                unlink("assets/images/" . $request->oldImage);
+            }
+            
+            $data['published'] = isset($request->published);
+            Car::where('id', $id)->update($data);
+            return redirect('cars');
        
         //$messages = $this->messages();
         //$data=$request->only($this->columns);
