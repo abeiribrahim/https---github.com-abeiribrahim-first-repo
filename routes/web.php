@@ -47,9 +47,13 @@ Route::post('image.upload',[CarController::class,'upload'])->name('image.upload'
 Route::get('404',function(){
     return view('404');
  });
-Route::get('testhome',function(){
-    return view('testhome');
+Route::get('index',function(){
+    return view('index');
  });
+ Route::get('contact-us',function(){
+    return view('contact-us');
+ });
+
 
 
 
@@ -87,10 +91,10 @@ Route::get('testhome',function(){
 
 
 
-/*Route::get('contact-us',function(){
+//Route::get('contact-us',function(){
     return view('contact-us');
-});
-Route::prefix('blog')->group(function(){
+//});
+/*Route::prefix('blog')->group(function(){
     Route::get('science',function(){
         return'science page';
     });

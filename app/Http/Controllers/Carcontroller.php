@@ -9,7 +9,7 @@ use App\Traits\Common;
 class Carcontroller extends Controller
 {
     use common;
-    private $columns =['title','description','published','image'];
+    private $columns =['title','description','published','image','category_id'];
     
     /**
      * Display a listing of the resource.

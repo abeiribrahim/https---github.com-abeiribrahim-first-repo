@@ -12,11 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('cars', function (Blueprint $table) {
-        $table->increments('id');
+        $table->id();
         $table->string('title', 100);
         $table->longText('description');
         $table->string('image',100);
         $table->boolean('published');
+        $table->foreignId('category_id')->constrained('categories');
         $table->softDeletes();
         $table->timestamps();
 
