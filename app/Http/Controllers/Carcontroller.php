@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\models\Car;
+use App\models\Category;
 use App\Traits\Common;
 
 class Carcontroller extends Controller
 {
     use common;
-    private $columns =['title','description','published','image','category_id'];
+    private $columns =['title','description','published','image'];
     
     /**
      * Display a listing of the resource.
@@ -39,8 +40,10 @@ class Carcontroller extends Controller
      */
     public function create()
     {
-        $messages = $this->messages();
-        return view('addcar');
+        $categories=Category::get();
+        return view('addcar', compact('categories'));
+        //$messages = $this->messages();
+        //return view('addcar');
     }
 
     /**
@@ -54,7 +57,9 @@ class Carcontroller extends Controller
              'title'=>'required|string|max:50',
              'description'=> 'required|string',
              'image' => 'required|mimes:png,jpg,jpeg|max:2048',
+             'category_id'=> 'required',
             ], $messages);
+
             $fileName = $this->uploadFile($request->image, 'assets/images');    
         $data['image'] = $fileName;
         $data['published'] = isset($request->published);

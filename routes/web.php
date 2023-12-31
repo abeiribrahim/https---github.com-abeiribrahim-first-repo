@@ -6,6 +6,7 @@ use App\Http\controllers\ExampleController;
 use App\Http\controllers\PostController;
 use App\Http\controllers\CarController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,6 +32,7 @@ use App\Http\controllers\CarController;
 
 
 Route::get('cars',[CarController::class,'index']);
+Route::get('categories',[CategoryController::class,'index']);
 Route::get('storecar',[CarController::class,'store']);
 Route::get('createcar',[CarController::class,'create']);
 Route::post('storecar',[CarController::class,'store'])->name('storecar');

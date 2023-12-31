@@ -22,6 +22,7 @@
         <th>title</th>
         <th>description</th>
         <th>published</th>
+       
 
         <th>image</th>
         <th>Edit</th>
@@ -40,6 +41,7 @@
             @else
                 No
             @endif</td>
+           
             <td><img src=" {{ asset ('/assets/images/'. $car->image ) }} " alt="image" style="width:75px"> </td>
             <td><a href="editCar/{{ $car->id }}">Edit</a></td>
             <td><a href="showcar/{{ $car->id }}">show</a></td>

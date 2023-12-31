@@ -15,6 +15,7 @@
     <h1>{{$cars->created_at}}</h1>
     <h1>{{$cars->updated_at}}</h1>
     <p>{{ $cars->published? "Published" : "Not Published" }}</p>
+    <p>{{ $cars->category->cat_name}}</p>
     
     </div>
 </body>
