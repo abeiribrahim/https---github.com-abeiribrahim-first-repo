@@ -17,7 +17,8 @@
     @method('put')
     <div class="form-group">
       <label for="title">Title:</label>
-      <input type="text" class="form-control" id="title" placeholder="Enter title" name="title" value= "{{$cars->title}}" >
+      <textarea type="text" class="form-control" id="" placeholder="Enter title" name="title" value= "{{old('$cars->title')}}">{{$cars->title}} </textarea>
+      
     </div>
     <div class="form-group">
       <label for="description">description:</label>
@@ -26,10 +27,24 @@
     <div class="form-group">
       <label for="image">Image:</label>
       <input type="file" class="form-control" id="image" placeholder="Enter image" name="image"><image src="{{asset('Assets/images/'.$cars->image)}}">
+        <input type="hidden" name="oldImage" value="{{$cars->image}}">
       @error('image')
         {{ $message }}
       @enderror
     </div>
+    <div class="form-group">
+      <label for="category">Category:</label>
+    <select name="category_id" id="">
+    @foreach ($categories as $category)
+ 
+        <option value="{{$category->id}}" {{$category->id == $cars->category->id  ? 'selected' : ''}}>{{$category->cat_name}}</option>
+    @endforeach
+</select>
+      @error('category_id')
+        {{ $message }}
+      @enderror
+    </div>
+
     <div class="checkbox">
       <label><input type="checkbox" name="published" @checked($cars->published)> Published me</label>
     </div>

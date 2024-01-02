@@ -10,7 +10,7 @@ use App\Traits\Common;
 class Carcontroller extends Controller
 {
     use common;
-    private $columns =['title','description','published','image'];
+    private $columns =['title','description','published','image','category_id'];
     
     /**
      * Display a listing of the resource.
@@ -42,8 +42,8 @@ class Carcontroller extends Controller
     {
         $categories=Category::get();
         return view('addcar', compact('categories'));
-        //$messages = $this->messages();
-        //return view('addcar');
+        $messages = $this->messages();
+        return view('addcar');
     }
 
     /**
@@ -112,10 +112,14 @@ class Carcontroller extends Controller
      */
     public function edit(string $id)
 
-    {
+    {   
        
         $cars = Car::findOrFail($id);
-        return view ('editCar', compact('cars'));
+        $categories=Category::get();
+        return view ('editCar', compact('cars','categories'));
+       
+      
+      
     }
 
     /**
@@ -138,25 +142,33 @@ class Carcontroller extends Controller
              'title'=>'required|string|max:50',
              'description'=> 'required|string',
              'image' => 'sometimes|mimes:png,jpg,jpeg|max:2048',
+             'category_id'=> 'required|string',
             ], $messages);
 
             if($request->hasFile('image')){
                 $fileName = $this->uploadFile($request->image, 'assets/images');    
                 $data['image'] = $fileName;
-                unlink("assets/images/" . $request->oldImage);
+               
+            }else{
+                $data ['image']=$request->oldImage;
+                //unlink("assets/images/" . $request->oldImage);
+            }
+             
+            $data['published'] = isset($request->published);
+                Car::where('id', $id)->update($data);
+                return redirect('cars');
             }
             
-            $data['published'] = isset($request->published);
-            Car::where('id', $id)->update($data);
-            return redirect('cars');
+        
+ 
        
         //$messages = $this->messages();
         //$data=$request->only($this->columns);
         //$data['published']=isset($request->published);
         
-        car::where('id',$id)->update($data);
-        return redirect('cars');
-    }
+        //Car::where('id',$id)->update($data);
+        //return redirect('cars');
+    
 
     /**
      * Remove the specified resource from storage.
